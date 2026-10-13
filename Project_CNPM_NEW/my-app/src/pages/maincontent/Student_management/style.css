@@ -1,0 +1,157 @@
+/* Tiêu đề chính */
+.header-row h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 24px;
+  color: #1e293b;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+}
+
+/* Nút chức năng trên góc phải */
+.header-actions {
+  display: flex;
+  gap: 10px;
+}
+
+button {
+  background-color: #2563eb;
+  border: none;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #1d4ed8;
+}
+
+/* Page header and controls */
+.header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+}
+
+/* Header actions */
+.header-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.header-actions button {
+  background: linear-gradient(180deg,#2563eb,#1d4ed8);
+  border: none;
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(2,6,23,0.06);
+  transition: transform .14s ease, box-shadow .14s ease;
+}
+.header-actions button:hover { transform: translateY(-3px); box-shadow: 0 12px 24px rgba(2,6,23,0.12); }
+
+/* Toolbar (filters / search) */
+
+
+/* Grid chứa các card */
+.card-grid {
+  margin-top: 10px;
+  display: grid;
+  box-shadow: 0 8px 30px rgba(2,6,23,0.04);
+  border: 1px solid #d9dbdf;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  background: #fff;
+  gap: 18px;
+  overflow: hidden;
+  align-items: start;
+  width: 100%;
+  margin-top: 12px;
+  padding: 8px 0;
+  height: 65vh;               /* chỉnh giá trị nếu cần (vd: calc(100vh - 260px)) */
+  overflow-y: auto;
+  border-radius: 12px;
+}
+
+/* Card nhân viên */
+.card {
+  background: #fff;
+  border-radius: 12px;  
+  padding: 12px;
+  border: 1px solid #e6e9ee;
+  box-shadow: 0 6px 16px rgba(2,6,23,0.04);
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.1);
+}
+
+/* Ảnh avatar */
+.card img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #2563eb;
+  margin-bottom: 12px;
+}
+
+/* Thông tin trong card */
+.card h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin: 4px 0;
+}
+
+.card p {
+  font-size: 0.9rem;
+  color: #64748b;
+  margin: 4px 0;
+}
+
+/* Icon + thông tin */
+.card .info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  color: #475569;
+  font-size: 0.85rem;
+  margin-top: 4px;
+}
+
+/* Nút xem chi tiết */
+.card .btn-detail {
+  display: inline-block;
+  margin-top: 12px;
+  background-color: #2563eb;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background 0.3s ease;
+}
+
+.card .btn-detail:hover {
+  background-color: #1d4ed8;
+}
+
+/* Small screens */
+@media (max-width: 640px) {
+  .card-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 12px; }
+  h2 { font-size: 1.2rem; }
+  .header-actions button { padding: 7px 10px; font-size: 0.9rem; }
+}

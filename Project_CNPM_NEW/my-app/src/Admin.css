@@ -1,0 +1,286 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  display: flex;
+  height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 200px;
+  color: #333;                /* màu chữ tối nhưng dịu */
+  text-align: center;          /* căn giữa chữ menu */
+  border-right: 1px solid #ddd; /* đường viền bên phải */
+  box-shadow: 2px 0 5px rgba(0,0,0,0.1); /* tạo hiệu ứng nổi */
+  height: 100vh;               /* full chiều cao */
+}
+
+.sidebar h2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #007bff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-bottom: 4px solid #007bff;
+  padding-bottom: 13px;
+  margin: 17px 0 0 0;
+}
+
+.sidebar ul li {
+  color: #444;
+  font-size: 1rem;
+  border-radius: 3px;
+  cursor: pointer;
+  margin: 40px 0; 
+}
+
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: #F0F2F5;
+}
+.main1 {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: url('./assets/image/Bus Tracking.png') no-repeat center center;
+  background-size: cover; /* ảnh phủ toàn bộ */
+}
+
+.header {
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #2563eb;
+  color: white;
+  padding: 10px 20px;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.avatar {
+  background: white;
+  border-radius: 50%;
+  border: none;
+  padding: 5px;
+  cursor: pointer;
+}
+
+/* 4 bảng trang chủ */
+.stats {
+  margin: 29px 90px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  background: rgb(255, 255, 255);
+  padding: 18px 25px;
+  border-radius: 14px;
+  align-items: center;
+  cursor: pointer;
+}
+
+.stats .item {
+  text-align: center;
+  padding: 10px 0;
+}
+
+.stats .item b {
+  display: block;
+  font-size: 26px;
+  color: #0056b3;
+  margin-bottom: 3px;
+  font-weight: 700;
+}
+
+.stats .item span {
+  font-size: 14px;
+  color: #000d44;
+  letter-spacing: 0.3px;
+}
+
+.stats .item:hover {
+  transform: translateY(-3px);
+  transition: 0.2s ease;
+}
+
+.page-empty {
+  background: white;
+  height: 300px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar li {
+  margin: 15px 0;
+  cursor: pointer;
+  text-align: center; /* căn giữa chữ menu */
+  width: 100%;
+}
+
+/**/
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999; /* 👈 Thêm dòng này */
+}
+
+.modal {
+  background: #fff !important;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+  width: 400px;
+  max-width: 90%;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+  z-index: 10000; /* tùy chọn, nếu cần nổi hơn overlay */
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.modal-content {
+  background: #fafafa;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 12px;
+  min-height: 100px;
+}
+
+/**/
+.tracking-container {
+  display: flex;
+  height: 100vh;
+  font-family: Arial, sans-serif;
+}
+/* Main content */
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Body */
+.body {
+  display: flex;
+  flex: 1;
+}
+
+
+/* tìm kiếm, bộ lọc */
+.panel {
+  width: 400px; /* hoặc 30%, tùy layout */
+  border-left: 1px solid #ccc;
+  padding: 20px;
+}
+
+.filter h4 {
+  margin-bottom: 10px;
+  padding: 20px 0 20px 0;
+}
+
+.filter label {
+  display: block;
+  margin: 10px 0 5px;
+}
+
+.filter input {
+  width: 97%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.search-filter {
+  display: flex;
+  flex-direction: column;  /* xếp theo cột */
+  align-items: center;     /* canh giữa */
+  gap: 12px;               /* khoảng cách đẹp */
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+/* Input + Select nằm ngang */
+.search-row {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  width: 100%;
+}
+
+.search-input {
+  flex: 1 1 auto;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+  font-size: 1rem; 
+  font-weight: 500; 
+  color: #000;
+  letter-spacing: 0.5px;
+}
+.search-input::placeholder {
+  color: #000;
+  opacity: 1;
+  font-weight: 400;
+}
+
+.filter-select {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+}
+
+.search-btn {
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  display: block;
+  margin: 10px auto;
+}
+
+.search-btn:hover {
+  background-color: #0056b3;
+}

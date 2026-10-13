@@ -1,0 +1,180 @@
+/* ...existing code... */
+:root{
+  --bg:#f6f7fb;
+  --card:#ffffff;
+  --accent:#2563eb;
+  --muted:#6b7280;
+  --border: #e6eaf2;
+  --success:#10b981;
+  --station-item-height:48px;
+}
+
+.add-route-wrap{
+    width: 100%;
+    height: 100%;
+  background:var(--bg);
+  min-height:400px;
+  font-family: Inter, Roboto, "Segoe UI", Arial, sans-serif;
+  box-sizing:border-box;
+}
+
+.add-route-header{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  margin-bottom:14px;
+}
+.add-route-header h1{
+  margin:0;
+  font-size:1.25rem;
+  color:#0f172a;
+}
+
+.search-row{
+  display:flex;
+  gap:8px;
+  align-items:center;
+  
+}
+.search-input{
+  flex:1 1 220px;
+  padding: 0;
+  border:1px solid var(--border);
+  border-radius:8px;
+  background:var(--card);
+  outline:none;
+  transition:box-shadow .15s;
+}
+.search-input:focus{
+  box-shadow:0 4px 14px rgba(37,99,235,0.08);
+  border-color:var(--accent);
+}
+.search-address-btn{
+  background:var(--accent);
+  color:#fff;
+  border:none;
+  padding:10px 14px;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:600;
+}
+.search-address-btn:hover{opacity:.95}
+
+/* main layout */
+.add-route-main{
+  display:flex;
+  min-height:85%;
+  
+  gap:18px;
+  align-items:stretch;
+  width: 100% ;
+  
+}
+.left-card{ flex:1;}
+.right-card{ width:60%;
+    height: 100%;
+    display:flex;
+     gap:12px; }
+
+/* cards */
+.form-card, .map-card, .info-card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:10px;
+  height: 100%;
+  padding:14px;
+  box-shadow:0 6px 18px rgba(12,13,16,0.03);
+}
+.map-card{
+    height: auto;
+    padding: 0;
+}
+
+.section-title{ margin:0 0 10px 0; font-size:1rem; }
+.sub-title{ margin:0 0 8px 0; font-size:.95rem; color:#111827; }
+
+.label{ display:block; margin-bottom:8px; font-size:.9rem; color:#111827; }
+.text-input{ width:90%; 
+    padding:10px 12px; border-radius:8px; margin-top:6px; }
+
+/* stations list */
+.stations-list{
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap:8px;
+  margin-top:8px;
+   /* limit to 2 rows; overflow scroll when more items */
+  max-height: calc(var(--station-item-height) * 2 + 60px); /* + gap compensation */
+  overflow-y: auto;
+  padding-right: 6px; /* space for scrollbar so content doesn't hide */
+  box-sizing: border-box;
+}
+
+.station-item{
+  height: var(--station-item-height);
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:8px;
+  border-radius:8px;
+  border:1px solid transparent;
+  cursor:pointer;
+  
+}
+.stations-list::-webkit-scrollbar { width: 8px; }
+.stations-list::-webkit-scrollbar-thumb {
+  background: rgba(15,23,42,0.12);
+  border-radius: 8px;
+}
+.stations-list { scrollbar-width: thin; scrollbar-color: rgba(15,23,42,0.12) transparent; }
+.station-item input{ width:16px; height:16px; }
+.station-item.active{
+  background:linear-gradient(90deg, rgba(37,99,235,0.06), rgba(37,99,235,0.03));
+  border:1px solid rgba(37,99,235,0.12);
+}
+.station-name{ font-size:.95rem; color:#0f172a; }
+
+/* time inputs */
+.time-row{ display:flex; gap:8px; margin-top:8px; }
+.time-input{ padding:8px 10px; border-radius:8px; border:1px solid var(--border); background:var(--card); }
+
+/* preview */
+.route-preview{ margin-top:12px; padding:10px; border-radius:8px; background:linear-gradient(180deg, #fafbff, #fff); border:1px solid var(--border); }
+.route-name-preview{ font-weight:700; margin-top:6px; }
+.stations-preview{ max-height: 150px;     /* chiều cao tối đa trước khi cuộn */
+  overflow-y: auto;     /* bật scroll dọc */
+  padding: 6px 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background: #fafafa;
+  font-size: 14px;
+  line-height: 1.2; }
+
+/* actions */
+.form-actions-add-route{ justify-content: center; display:flex; gap:8px;padding:10px 10px; }
+.save-btn{
+  background:var(--accent); color:#fff; border:none; padding:10px 14px; border-radius:8px; cursor:pointer; font-weight:600;
+}
+.map-placeholder{
+  height:200px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--muted);
+  border-radius:8px;
+  background:linear-gradient(180deg,#eef2ff,#fff);
+  font-size:.95rem;
+}
+
+/* info card */
+.info-card h4{ margin:0 0 8px 0; }
+.info-stations{ margin:8px 0 0 16px; padding:0; }
+.info-stations li{ margin-bottom:6px; }
+
+/* small screens */
+@media (max-width:900px){
+  .add-route-main{ flex-direction:column; }
+  .right-card{ width:100%; }
+  .stations-list{ grid-template-columns: repeat(1, 1fr); }
+}
+/* ...existing code... */

@@ -1,0 +1,134 @@
+/* ============ Layout tổng ============ */
+.tk-container {
+  width: 1326px;          /* hoặc max-width nếu muốn responsive */
+  max-width: 100%;         /* tránh tràn màn hình */
+  margin: 0 auto;          /* căn giữa ngang */
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.tk-row {
+display: flex;
+gap: 20px;
+}
+
+.tk-card {
+  flex: 1 1 48%; /* hoặc 100% nếu muốn full */
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+/* Card chung */
+.tk-card {
+background: white;
+padding: 20px;
+border-radius: 12px;
+box-shadow: none;
+display: flex;
+flex-direction: column;
+gap: 10px;
+min-height: 490px; /* giữ đều chiều cao 2 card */
+}
+
+/* Tiêu đề chung */
+.tk-card h3 {
+margin: 0;
+font-size: 30px;
+font-weight: bold;
+}
+
+/* Card Cảnh báo */
+/* Card Cảnh báo */
+.tk-card-warning {
+background: white;
+color: #c85c28;
+display: flex;
+flex-direction: column;
+justify-content: space-between; /* đẩy nút xuống đáy */
+padding: 20px;
+border-radius: 12px;
+
+}
+
+/* Danh sách Cảnh báo */
+.tk-card-warning ul {
+list-style-type: decimal;
+padding-left: 20px;
+font-size: 17px;
+margin: 10px 0;
+flex-grow: 1; /* giãn danh sách */
+display: flex;
+flex-direction: column;
+gap: 10px; /* khoảng cách đều giữa các li */
+}
+
+/* Hiệu ứng hover / highlight */
+.tk-card-warning ul li {
+padding: 8px 12px;
+border-radius: 6px;
+background-color: #fff4e6; /* màu nhấn nhẹ */
+transition: background-color 0.3s, transform 0.2s;
+cursor: default;
+}
+
+.tk-card-warning ul li:hover {
+background-color: #ffd2a1; /* nhấn khi hover */
+transform: translateX(5px); /* dịch nhẹ sang phải */
+}
+
+/* Nút */
+.tk-card-warning .tk-button {
+margin-bottom: 20px;
+background: #c85c28;
+color: white;
+padding: 12px 25px; 
+font-size: 18px;
+border-radius: 8px;
+border: none;
+cursor: pointer;
+align-self: flex-end; 
+transition: transform 0.2s, background-color 0.3s;
+}
+
+.tk-card-warning .tk-button {
+background-color: #ff933d;
+transform: scale(1.05); /* phóng to nhẹ khi hover */
+}
+
+
+/* Card Live Map */
+.tk-card-livemap {
+background: white;
+color: #3f8d4a;
+display: flex;
+flex-direction: column;
+justify-content: flex-start; /* giữ tiêu đề top */
+}
+
+.map-sim {
+display: flex;
+justify-content: center;
+gap: 20px;
+margin: 10px 0;
+}
+
+.bus-icon {
+width: 480px;
+height: 350px;
+border-radius: 10px;
+}
+
+/* Chữ trạng thái căn giữa, xuống gần đáy */
+.status-text {
+font-weight: 600;
+text-align: center;
+margin-top: auto; /* đẩy xuống dưới */
+margin-bottom: 20px; /* cách đáy card */
+}
+
+.tk-row-top > .tk-card {
+  flex: 1;           /* mỗi card chiếm 50% hàng ngang (cùng flex) */
+  min-width: 0;      /* tránh tràn nội dung */
+  min-height: 530px; /* giữ chiều cao tối thiểu */
+}

@@ -1,0 +1,97 @@
+body {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  background-color: #ffff;
+}
+
+
+/* Navbar */
+*{
+  box-sizing: border-box;
+}
+
+.navbar .logo {
+  color: #007bff;
+  font-weight: 600;
+  font-size: 39px;
+}
+
+.navbar {
+  font-size: 17px;
+  display: flex;
+  justify-content: flex-start; /* căn về bên trái */
+  align-items: center;
+  padding: 20px 170px;
+}
+
+.navbar ul {
+  display: flex;
+  gap: 150px;
+  list-style: none;
+  margin-left: 550px; /* khoảng cách giữa logo và menu */
+  padding: 0;
+}
+
+.navbar li:hover {
+  color: #007bff;
+}
+
+/* Login Section */
+.login-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 35px 60px;
+  gap: 100px;
+  
+}
+
+.login-image img {
+  width: 800px;
+  margin-left: 50px;
+}
+
+.login-form {
+
+  display: flex;
+  flex-direction: column; /* sắp theo cột */
+  width: 100%; /* 👈 full chiều ngang cha, hoặc bạn chỉnh theo ý */
+  max-width: 400px; /* 👈 tăng độ rộng form */
+  gap: 20px; /* 👈 tạo khoảng cách đều giữa các phần tử con */
+  margin: 0 auto; /* căn giữa form nếu cần */
+}
+
+.login-form h2 {
+  margin-bottom: 25px;
+  font-size: 24px;
+}
+
+.login-form input {
+  margin-bottom: 15px;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.login-form .forgot {
+  font-size: 0.9rem;
+  color: #007bff;
+  text-align: right;
+  margin-bottom: 20px;
+  text-decoration: none;
+}
+
+.login-form button {
+  background-color: #007bff;
+  border: none;
+  color: white;
+  padding: 10px 0;
+  border-radius: 10px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.login-form button:hover {
+  background-color: #0056b3;
+}

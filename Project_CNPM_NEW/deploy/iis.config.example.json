@@ -1,0 +1,39 @@
+{
+  "iis": {
+    "siteName": "G5BUS",
+    "appPoolName": "G5BUS-AppPool",
+    "binding": {
+      "protocol": "http",
+      "ipAddress": "*",
+      "port": 80,
+      "hostName": "g5bus.local"
+    }
+  },
+  "paths": {
+    "frontendSource": ".\\my-app",
+    "backendSource": ".\\backend",
+    "frontendDeployPath": "C:\\inetpub\\g5bus\\frontend",
+    "backendDeployPath": "C:\\inetpub\\g5bus\\backend"
+  },
+  "backend": {
+    "serviceName": "G5BUS-Backend",
+    "serviceDisplayName": "G5BUS Backend Service",
+    "serviceRunner": "nssm",
+    "nssmPath": "C:\\tools\\nssm\\win64\\nssm.exe",
+    "nodeExe": "C:\\Program Files\\nodejs\\node.exe",
+    "entrypoint": "server.js",
+    "port": 5000,
+    "corsOrigin": "http://g5bus.local",
+    "envFile": ".env"
+  },
+  "database": {
+    "name": "bus_map",
+    "host": "localhost",
+    "port": 3306,
+    "user": "bus_app_user",
+    "password": "__CHANGE_ME__"
+  },
+  "mysql": {
+    "clientCommand": "mysql"
+  }
+}

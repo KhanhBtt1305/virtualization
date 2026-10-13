@@ -1,0 +1,166 @@
+.point-marker-container {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  
+}
+
+/* Pulse animation effect */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+}
+
+@keyframes pulse-slow {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.15);
+    opacity: 0.4;
+  }
+}
+
+.marker-pulse {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid currentColor;
+  animation: pulse 2s infinite;
+  opacity: 0.6;
+}
+
+/* Main pin/marker */
+.marker-pin {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2), 
+              0 0 0 3px rgba(255, 255, 255, 0.8);
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transform: scale(1);
+}
+
+.marker-pin:hover,
+.marker-pin.hovered {
+  transform: scale(1.25);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3),
+              0 0 0 4px rgba(255, 255, 255, 0.9),
+              0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.marker-pin i {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: inherit;
+}
+
+/* Shadow/depth effect */
+.marker-shadow {
+  position: absolute;
+  bottom: -2px;
+  width: 32px;
+  height: 6px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(0, 0, 0, 0.15) 0%, transparent 70%);
+  filter: blur(2px);
+  z-index: 1;
+}
+
+/* Popup styling */
+.popup-content {
+  padding: 12px 16px;
+  min-width: 200px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.popup-title {
+  margin: 0 0 6px 0;
+  font-size: 14px;
+  font-weight: 700;
+  color: #0f172a;
+  letter-spacing: -0.3px;
+}
+
+.popup-coords {
+  margin: 0;
+  font-size: 12px;
+  color: #6b7280;
+  font-family: 'Courier New', monospace;
+  letter-spacing: 0.5px;
+}
+
+/* Close button styling (Goong default) */
+.mapboxgl-popup-close-button {
+  color: #6b7280;
+  font-size: 1.4em;
+  padding: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.mapboxgl-popup-close-button:hover {
+  color: #0f172a;
+  transform: scale(1.2);
+}
+
+/* Arrow pointer adjustment */
+.mapboxgl-popup-tip {
+  border-top-color: white;
+}
+
+/* Responsive adjustment for mobile */
+@media (max-width: 768px) {
+  .point-marker-container {
+    width: 45px;
+    height: 45px;
+  }
+
+  .marker-pin {
+    width: 36px;
+    height: 36px;
+    font-size: 1.2em;
+  }
+
+  .marker-pulse {
+    width: 36px;
+    height: 36px;
+  }
+
+  .popup-content {
+    min-width: 160px;
+    padding: 10px 12px;
+  }
+
+  .popup-title {
+    font-size: 13px;
+  }
+
+  .popup-coords {
+    font-size: 11px;
+  }
+}

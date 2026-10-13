@@ -1,0 +1,765 @@
+@import './NextWeekScheduler.css';
+
+.driver-container {
+    flex: 1;
+    background: #fff;
+    margin: 20px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.05);
+}
+
+.toolbar {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.toolbar input,
+.toolbar select {
+    padding: 8px 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.btn-add,
+.btn-edit {
+    background: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 14px;
+    cursor: pointer;
+}
+
+.btn-match {
+    background: #d46300;
+    color: rgb(255, 255, 255);
+    border: none;
+    border-radius: 6px;
+    padding: 8px 14px;
+    cursor: pointer;
+}
+
+.btn-add:hover {
+    background: #1d4ed8;
+}
+
+.driver-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.driver-table th,
+.driver-table td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+}
+
+.driver-table th {
+    background: #e8f1ff;
+}
+
+.driver-table tbody tr {
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+}
+
+.driver-table tbody tr:hover {
+    background-color: #f0f5ff;
+}
+
+.driver-table tbody tr.row-selected {
+    background-color: #dbeafe;
+    font-weight: 500;
+}
+
+
+.status-badge {
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.9em;
+    color: white;
+}
+
+.status-badge.active {
+    background-color: #28a745;
+}
+
+.status-badge.idle {
+    background-color: #ffc107;
+    color: black;
+}
+
+.status-badge.off {
+    background-color: #dc3545;
+}
+
+.calendar-btn {
+    background: none;
+    border: none;
+    font-size: 1.2em;
+    cursor: pointer;
+}
+
+.btn-schedule {
+    background: #10b981;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 14px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-schedule:hover {
+    background: #0d946b;
+}
+
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 200;
+}
+
+.popup {
+    background: #fff;
+    width: 700px;
+    max-height: 90vh;
+    border-radius: 10px;
+    padding: 20px;
+    overflow-y: auto;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    animation: popupFadeIn 0.25s ease;
+}
+
+@keyframes popupFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.popup-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 8px;
+}
+
+.popup-header h2 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: bold;
+    color: #2563eb;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: #888;
+    cursor: pointer;
+}
+
+.close-btn:hover {
+    color: #2563eb;
+}
+
+.tabs {
+    display: flex;
+    gap: 16px;
+    border-bottom: 1px solid #ddd;
+    margin: 20px 0;
+}
+
+.tab {
+    padding: 8px 12px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: #444;
+    font-weight: 500;
+}
+
+.tab.active {
+    border-bottom: 2px solid #2563eb;
+    color: #2563eb;
+}
+
+.month-view {
+    margin-top: 10px;
+}
+
+.calendar-container {
+    width: 100%;
+    background: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 15px;
+}
+
+.calendar-header h3 {
+    margin: 0;
+    color: #1e3a8a;
+    font-weight: bold;
+}
+
+.month-nav {
+    background: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.month-nav:hover {
+    background: #1d4ed8;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+}
+
+.calendar-day-header {
+    background: #2563eb;
+    color: white;
+    font-weight: bold;
+    padding: 6px;
+    border-radius: 6px;
+    font-size: 0.9em;
+}
+
+.calendar-day {
+    position: relative;
+    height: 60px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    cursor: default;
+    transition: 0.2s;
+}
+
+.calendar-day:hover {
+    transform: scale(1.03);
+}
+
+.calendar-day.past {
+    background: #3b82f6;
+    color: white;
+}
+
+.calendar-day.this-week {
+    background: #facc15;
+    color: #1e3a8a;
+}
+
+.calendar-day.holiday {
+    background: #ef4444;
+    color: white;
+}
+
+.calendar-day .day-number {
+    font-size: 14px;
+}
+
+.calendar-day .reg-count {
+    position: absolute;
+    bottom: 4px;
+    right: 6px;
+    font-size: 11px;
+    font-weight: bold;
+    color: inherit;
+    opacity: 0.9;
+}
+
+.calendar-day.past:hover,
+.calendar-day.holiday:hover {
+    cursor: pointer;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+}
+
+.calendar-day.other-month {
+    background: #f3f4f6;
+    color: #9ca3af;
+    cursor: default;
+    opacity: 1;
+}
+
+.calendar-day.other-month:hover {
+    transform: none;
+    background: #f3f4f6;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+}
+
+.calendar-day.other-month .day-number {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.week-view-table {
+    margin-top: 10px;
+    overflow-x: auto;
+}
+
+.week-selector-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.week-selector-bar label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #374151;
+}
+
+.week-select-dropdown {
+    padding: 5px 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    background: #fff;
+    font-size: 14px;
+}
+
+.week-schedule-table {
+    width: 100%;
+    min-width: 600px;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+.week-schedule-table th,
+.week-schedule-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    vertical-align: top;
+}
+
+.week-schedule-table th {
+    background: #2563eb;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    padding: 12px 10px;
+}
+
+.week-schedule-table td {
+    font-size: 13px;
+    height: 120px;
+    background: #fff;
+    text-align: left;
+    vertical-align: top;
+}
+
+.no-registration-table {
+    font-size: 13px;
+    color: #6b7280;
+    font-style: italic;
+    display: block;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.driver-list-vertical {
+    margin: 0;
+    padding-left: 1.5em;
+    list-style-type: disc;
+    text-align: left;
+}
+
+.driver-list-vertical li {
+    padding: 3px 0;
+    font-size: 13px;
+    color: #374151;
+}
+
+.popup-overlay.small {
+    background: rgba(0, 0, 0, 0.4);
+}
+
+.popup.small-popup {
+    width: 450px;
+}
+
+.day-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.day-table th,
+.day-table td {
+    border: 1px solid #ddd;
+    padding: 6px 10px;
+    text-align: center;
+}
+
+.day-table th {
+    background: #2563eb;
+    color: white;
+}
+
+.popup.driver-form-popup {
+    width: 600px;
+}
+
+.driver-form-content {
+    margin-top: 20px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #374151;
+    margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 8px 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+.form-group input.readonly-input {
+    background: #f3f4f6;
+    color: #4b5563;
+    font-weight: bold;
+    cursor: not-allowed;
+}
+
+.form-group input:disabled,
+.form-group select:disabled {
+    background: #f3f4f6;
+    color: #6b7280;
+    cursor: not-allowed;
+}
+
+.form-group.full-width {
+    grid-column: 1 / -1;
+}
+
+.popup-footer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+    border-top: 1px solid #eee;
+    padding-top: 15px;
+    margin-top: 10px;
+}
+
+.popup-footer.space-between {
+    justify-content: space-between;
+}
+
+.footer-right-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-cancel {
+    background: #6b7280;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 14px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.btn-cancel:hover {
+    background: #4b5563;
+}
+
+.btn-save {
+    background: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 14px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.btn-save:hover {
+    background: #1d4ed8;
+}
+
+.btn-save:disabled {
+    background: #9ca3af;
+    cursor: not-allowed;
+}
+
+.btn-delete {
+    background: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 14px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.btn-delete:hover {
+    background: #c82333;
+}
+
+.btn-delete:disabled {
+    background: #f87171;
+    cursor: not-allowed;
+}
+
+
+.popup.driver-view-popup {
+    width: 500px;
+    padding: 0;
+    border-radius: 12px;
+    overflow: hidden; 
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+.popup.driver-view-popup .popup-header {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f9fafb;
+    padding: 16px 50px;
+    border-bottom: 1px solid #e5e7eb;
+    text-align: center;
+   
+}
+.popup.driver-view-popup .popup-header h2 {
+    font-size: 20px;
+    color: #111827;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    width: 100%;
+
+}
+.driver-view-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+    padding: 20px 24px;
+    margin-top: 20px;
+    font-size: 20px;
+}
+.popup.driver-view-popup .close-btn {
+    position: absolute;       /* Tách khỏi dòng chảy văn bản */
+    right: 15px;               /* Cách mép trái 15px */
+    top: 50%;                 /* Căn giữa theo chiều dọc header */
+    transform: translateY(-50%); 
+    
+    /* Style nút màu xanh */
+    background-color: #2563eb; 
+    color: white;
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;       /* Bo góc vuông nhẹ */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(37, 99, 235, 0.3);
+}
+.popup.driver-view-popup .close-btn:hover {
+    background-color: #f0f0f0; /* Màu xám nhạt khi di chuột vào */
+}
+
+.view-group {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 20px;
+    align-items: center;
+    padding: 14px 0;
+    border-bottom: 1px dashed #e5e7eb;
+    align-items: baseline;
+}
+
+.view-group:first-child {
+    padding-top: 0;
+}
+.view-group:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.view-group strong {
+    font-weight: 500;
+    color: #4b5563;
+    text-align: left;
+    letter-spacing: 0.5px;
+    
+    
+}
+
+.view-group span {
+    font-weight: 500;
+    color: #111827;
+    text-align: right;
+}
+
+.search-to-edit-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.search-to-edit-group label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #374151;
+}
+
+.search-bar {
+    display: flex;
+    gap: 8px;
+    position: relative;
+}
+
+.search-bar input {
+    flex: 1;
+    padding: 8px 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+
+.form-divider {
+    border: none;
+    border-top: 1px solid #eee;
+    margin: 20px 0;
+}
+.search-results-dropdown {
+    list-style: none;
+    margin: 0;
+    padding: 4px 0;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #fff;
+    border: 1px solid #dfe1e5;
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 4px 6px rgba(32, 33, 36, .2);
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 300;
+}
+
+.search-result-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 16px;
+    font-size: 14px;
+    color: #111827;
+    cursor: pointer;
+}
+
+.search-result-item:hover {
+    background-color: #f0f5ff;
+}
+.search-result-item:not(:last-child) {
+    border-bottom: none;
+}
+.search-result-icon {
+    width: 18px;
+    height: 18px;
+    fill: #5f6368;
+    flex-shrink: 0;
+}
+/* Thêm vào cuối file QuanLyTaiXe.css */
+
+.form-group-checkbox-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 8px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+
+.form-group-checkbox-row label {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.form-group-checkbox-row input[type="checkbox"] {
+  width: 16px; /* Ghi đè CSS input chung */
+  height: 16px;
+  cursor: pointer;
+}
+.popup.driver-view-popup .popup-footer {
+    display: flex;
+    justify-content: center; /* Căn giữa nút */
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+.popup.driver-view-popup .popup-footer .btn-cancel {
+    background-color: #dc3545; /* Màu đỏ */
+    color: white;
+    padding: 8px 30px; /* Nút dài ra một chút cho đẹp */
+    border-radius: 6px;
+    font-size: 14px;
+}

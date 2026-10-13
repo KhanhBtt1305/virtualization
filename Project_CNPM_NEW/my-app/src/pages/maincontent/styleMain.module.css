@@ -1,0 +1,17 @@
+.content_main_center{
+    width: auto;
+    height: auto;
+    
+    justify-content: center;
+    align-items: center;
+}
+.row_direction{
+    display: flex;
+    flex-direction: row;
+    gap: 20px
+}
+.column_direction{
+    display: flex;
+    flex-direction: column;
+    gap: 20px
+}
