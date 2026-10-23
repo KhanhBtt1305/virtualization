@@ -50,6 +50,8 @@ jobs:
           node-version: 20
           cache: npm
           cache-dependency-path: Project_CNPM_NEW/my-app/package-lock.json
+      - name: Use npm 11 to match package-lock.json
+        run: npm install -g npm@11.19.0
       - run: npm ci
       - run: npm test -- --watchAll=false
         env:
