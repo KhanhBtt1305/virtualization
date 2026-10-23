@@ -75,3 +75,39 @@ Seed tạo dữ liệu tối thiểu: admin/driver/parent, route, bus, stop, stu
 - Backend service nội bộ: `http://127.0.0.1:5000`
 
 Trước production cần rà soát lại binding, firewall, secret DB và tài khoản service.
+
+## 6) CI/CD (GitHub Actions)
+
+Pipeline nằm ở `.github/workflows/ci-cd.yml`.
+
+**CI** (mọi pull request và push vào `main`):
+
+- Backend: `npm ci` + `npm test` (`GET /health`)
+- Frontend: `npm test` + `npm run build` (artifact `frontend-build`)
+- Docker: build image backend/frontend
+
+**CD** (push vào `main`):
+
+- Đẩy image lên GitHub Container Registry:
+  - `ghcr.io/<owner>/g5bus-backend`
+  - `ghcr.io/<owner>/g5bus-frontend`
+- Deploy SSH chỉ chạy khi repository variable `ENABLE_DEPLOY=true`
+
+### Bật deploy tự động
+
+1. Tạo GitHub Environment tên `production`
+2. Repository variable: `ENABLE_DEPLOY` = `true`
+3. Secrets:
+
+| Secret | Ý nghĩa |
+| --- | --- |
+| `DEPLOY_HOST` | IP hoặc hostname máy chủ |
+| `DEPLOY_USER` | User SSH |
+| `DEPLOY_SSH_KEY` | Private key SSH (không passphrase, hoặc dùng key deploy) |
+| `DEPLOY_PATH` | Thư mục chứa `docker-compose.prod.yml` trên server |
+| `GHCR_PULL_TOKEN` | PAT `read:packages` nếu image GHCR là private |
+
+4. Trên server, clone repo (hoặc copy `docker-compose.prod.yml` + SQL seed), tạo file `.env` từ `.env.example`, rồi đợi workflow pull image và `docker compose up`.
+
+Package GHCR mặc định private. Vào GitHub Packages → image → Package settings → đổi visibility nếu muốn pull không cần token.
+

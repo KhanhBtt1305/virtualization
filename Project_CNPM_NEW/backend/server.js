@@ -42,12 +42,18 @@ app.use('/api/notifications', notificationRoutes);
 
 app.use('/api/students', studentRoutes);
 
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: 'ok' });
+});
+
 /* ==================================================================
  * CRON JOB: TỰ ĐỘNG QUÉT VÀ GỬI THÔNG BÁO (CHẠY MỖI PHÚT)
  * ================================================================== */
 
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`Backend server đang chạy tại http://localhost:${PORT}`);
+  });
+}
 
-// Khởi động server
-app.listen(PORT, () => {
-  console.log(`Backend server đang chạy tại http://localhost:${PORT}`);
-});
+module.exports = app;

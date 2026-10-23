@@ -1,8 +1,12 @@
 import { render, screen } from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
+jest.mock('./Admin', () => () => <div>Admin</div>);
+jest.mock('./DriverSuccess', () => () => <div>Driver</div>);
+jest.mock('./ParentSuccess', () => () => <div>Parent</div>);
+
+test('renders G5BUS login screen', () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+  expect(screen.getByText('G5BUS')).toBeInTheDocument();
+  expect(screen.getByRole('heading', { name: /login/i })).toBeInTheDocument();
 });
