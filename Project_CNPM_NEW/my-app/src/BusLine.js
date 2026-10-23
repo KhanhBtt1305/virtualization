@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import BusLineDetail from './BusLineDetail';
+import { apiUrl } from './api/apiConfig';
 
 const BusLine = () => {
   const [selectedRouteId, setSelectedRouteId] = useState(null);
@@ -7,7 +8,7 @@ const BusLine = () => {
 
   //GỌI API LẤY DANH SÁCH TUYẾN
   useEffect(() => {
-    fetch('http://localhost:8081/api/routes')
+    fetch(apiUrl('routes'))
       .then(res => res.json())
       .then(data => setRoutes(data))
       .catch(err => console.error(err));

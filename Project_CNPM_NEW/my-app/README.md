@@ -68,3 +68,13 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+## API URL configuration
+
+Frontend API requests use `REACT_APP_API_URL`, configured centrally in `src/api/apiConfig.js`.
+
+- For local development, create `.env.development.local` in this directory and set `REACT_APP_API_URL=http://localhost:5000/api`.
+- On Vercel, add `REACT_APP_API_URL=https://virtualization-pi.vercel.app/api` in the project's Environment Variables, then redeploy.
+- If the variable is not set, the app uses `/api` on the current domain.
+
+Create React App reads environment variables at build time, so restart the local development server or rebuild and redeploy after changing the value.

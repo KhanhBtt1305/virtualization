@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { apiUrl } from './api/apiConfig';
 
 const Notification = () => {
   const [notifications, setNotifications] = useState([]);
@@ -9,7 +10,7 @@ const Notification = () => {
   }, []);
 
   const fetchNotifications = () => {
-    fetch('http://localhost:8081/api/notifications')
+    fetch(apiUrl('notifications'))
       .then(res => res.json())
       .then(data => {
         const formattedData = data.map(item => ({
@@ -32,7 +33,7 @@ const Notification = () => {
       notif.id === id ? { ...notif, read: true } : notif
     ));
 
-    fetch(`http://localhost:8081/api/notifications/${id}`, {
+    fetch(apiUrl(`notifications/${id}`), {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ status: 'read' })
@@ -42,14 +43,14 @@ const Notification = () => {
   // ĐÁNH DẤU TẤT CẢ
   const markAllAsRead = () => {
     setNotifications(notifications.map(notif => ({ ...notif, read: true })));
-    fetch('http://localhost:8081/api/notifications-mark-all', { method: 'PUT' });
+    fetch(apiUrl('notifications-mark-all'), { method: 'PUT' });
   };
 
   // XÓA THÔNG BÁO
   const deleteNotification = (id) => {
     if(window.confirm("Bạn muốn xóa thông báo này?")) {
         setNotifications(notifications.filter(notif => notif.id !== id));
-        fetch(`http://localhost:8081/api/notifications/${id}`, { method: 'DELETE' });
+        fetch(apiUrl(`notifications/${id}`), { method: 'DELETE' });
     }
   };
 

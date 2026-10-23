@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useCallback } from "react"; 
 import "./QuanLyXeBuyt.css";
 import BusFormPopup from "./components/BusFormPopup";
+import { apiUrl } from "../api/apiConfig";
 
 
-const API_URL = "http://localhost:5000/api/buses";
-const ROUTES_API_URL = "http://localhost:5000/api/routes";
+const API_URL = apiUrl("buses");
+const ROUTES_API_URL = apiUrl("routes");
 
 function QuanLyXeBuyt() {
   const [busData, setBusData] = useState([]); 

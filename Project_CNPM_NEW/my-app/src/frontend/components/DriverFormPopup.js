@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react"; 
 import "../QuanLyTaiXe.css"; // Dùng chung CSS
 import WorkScheduleCheckboxes from "./WorkScheduleCheckboxes";
+import { apiUrl } from "../../api/apiConfig";
 
 export default function DriverFormPopup({ isOpen, onClose, onAddDriver }) {
 
@@ -42,7 +43,7 @@ export default function DriverFormPopup({ isOpen, onClose, onAddDriver }) {
     }
 
     try {
-      const response = await fetch('http://localhost:3001/api/drivers', {
+      const response = await fetch(apiUrl("drivers"), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(finalData) 

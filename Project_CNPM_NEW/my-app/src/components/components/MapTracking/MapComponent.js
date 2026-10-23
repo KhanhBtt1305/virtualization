@@ -4,6 +4,7 @@ import "leaflet/dist/leaflet.css";
 import "leaflet-routing-machine/dist/leaflet-routing-machine.css";
 import "leaflet-routing-machine";
 import axios from "axios";
+import { apiUrl } from "../../../api/apiConfig";
 
 // Import các hàm
 import { khoiTaoBanDo, thietLapTuyen } from './handleMapSetup.js';
@@ -42,7 +43,7 @@ function MapComponent({ searchQuery, searchTrigger, onRouteSelect }) {
     let isCancelled = false;
     const layDsTuyen = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/vehicle/routes");
+        const response = await axios.get(apiUrl("vehicle/routes"));
         if (!isCancelled) setDsTuyen(response.data);
       } catch (error) {
         console.error("Lỗi khi lấy danh sách tuyến đường:", error);

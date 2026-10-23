@@ -5,6 +5,7 @@ import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import busImgLocal from './icon/bus.png'; 
 import stopicon from './icon/stop.png';
+import { apiUrl } from './api/apiConfig';
 
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
@@ -30,7 +31,7 @@ const BusTracking = ({ propRouteId }) => {
   const [stops, setStops] = useState([]);
   useEffect(() => {
     const fetchLocations = () => {
-      fetch(`http://localhost:8081/api/bus-locations?routeId=${routeId}`)
+      fetch(apiUrl(`bus-locations?routeId=${routeId}`))
         .then(res => res.json())
         .then(data => setBusLocations(data))
         .catch(err => console.error("Lỗi map:", err));
@@ -42,7 +43,7 @@ const BusTracking = ({ propRouteId }) => {
 
   //Lấy thông tin xe
   useEffect(() => {
-    fetch(`http://localhost:8081/api/bus-info-by-route?id=${routeId}`)
+    fetch(apiUrl(`bus-info-by-route?id=${routeId}`))
       .then(res => res.json())
       .then(data => setBusInfo(data))
       .catch(err => console.error(err));
@@ -50,7 +51,7 @@ const BusTracking = ({ propRouteId }) => {
 
   //Lấy đường đi & vẽ
   useEffect(() => {
-      fetch(`http://localhost:8081/api/route-path?id=${routeId}`)
+      fetch(apiUrl(`route-path?id=${routeId}`))
         .then(res => res.json())
         .then(stopCoordinates => {
             if(stopCoordinates.length > 0) {

@@ -14,6 +14,7 @@ import aboutIcon from './icon/about.png';
 import onlineIcon from './icon/online.png';
 import vitriIcon from './icon/vitri.png';
 import stopIcon from './icon/stop.png';
+import { apiUrl } from './api/apiConfig';
 
 const HomePH = () => {
   const [activeTab, setActiveTab] = useState('trang-chu');
@@ -42,12 +43,12 @@ const HomePH = () => {
     const userStr = localStorage.getItem('user');
     if (userStr) {
         const user = JSON.parse(userStr);
-        fetch(`http://localhost:8081/api/profile?id=${user.linked_id}`)
+        fetch(apiUrl(`profile?id=${user.linked_id}`))
           .then(res => res.json())
           .then(data => {
             if (data && data.parent_id) {
                 setUserInfo(data);
-                fetch(`http://localhost:8081/api/home-summary?parentId=${data.parent_id}`)
+                fetch(apiUrl(`home-summary?parentId=${data.parent_id}`))
                     .then(r => r.json())
                     .then(d => {
                         if(d && d.route_id) setHomeData(d);

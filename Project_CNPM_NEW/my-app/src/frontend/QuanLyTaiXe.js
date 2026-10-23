@@ -7,6 +7,7 @@ import DriverFormPopup from "./components/DriverFormPopup";
 import DriverViewPopup from "./components/DriverViewPopup";
 import DriverEditPopup from "./components/DriverEditPopup";
 import ScheduleCalendarPopup from "./components/ScheduleCalendarPopup";
+import { apiUrl } from "../api/apiConfig";
 // ===========================================
 
 export default function QuanLyTaiXe() {
@@ -27,7 +28,7 @@ export default function QuanLyTaiXe() {
   
   useEffect(() => {
     setIsLoading(true);
-    fetch('http://localhost:5000/api/drivers')
+    fetch(apiUrl("drivers"))
       .then(res => {
         if (!res.ok) throw new Error('Không thể tải dữ liệu');
         return res.json();

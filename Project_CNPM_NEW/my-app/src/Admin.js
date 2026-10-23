@@ -11,6 +11,7 @@ import QuanLyXeBuyt from "./frontend/QuanLyXeBuyt";
 import ThongBao from "./frontend/ThongBao";
 import Clock from "./components/Time";
 import DemoTk from "./demoTk";
+import { apiUrl } from "./api/apiConfig";
 
 function Admin({ user, onLogout }) {
   const [showModal, setShowModal] = useState(false);
@@ -30,7 +31,7 @@ function Admin({ user, onLogout }) {
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/thongke");
+        const res = await axios.get(apiUrl("thongke"));
         setStatsData(res.data);
       } catch (err) {
         console.error("Error fetching stats:", err);

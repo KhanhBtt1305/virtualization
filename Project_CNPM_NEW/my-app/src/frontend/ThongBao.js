@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useCallback } from "react";
 import "./ThongBao.css";
+import { apiUrl } from "../api/apiConfig";
 
-const NOTIFICATION_API_URL = "http://localhost:5000/api/notifications";
+const NOTIFICATION_API_URL = apiUrl("notifications");
 
 export default function ThongBao() {
     const [activeTab, setActiveTab] = useState("all");

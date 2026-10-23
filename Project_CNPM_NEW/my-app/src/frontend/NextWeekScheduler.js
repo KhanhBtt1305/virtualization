@@ -7,6 +7,7 @@ import { generateWeekDays } from "./scheduler/SchedulerUtils";
 import SchedulerTabFastMatch from "./scheduler/SchedulerTabFastMatch";
 import SchedulerTabDetailed from "./scheduler/SchedulerTabDetailed";
 import SchedulerTabSummary from "./scheduler/SchedulerTabSummary";
+import { apiUrl } from "../api/apiConfig";
 
 
 export default function NextWeekScheduler({ isOpen, onClose, drivers = [] }) {
@@ -72,8 +73,10 @@ export default function NextWeekScheduler({ isOpen, onClose, drivers = [] }) {
                 });
             };
 
-            const fetchVehicles = secureFetch('http://localhost:5000/api/buses');
-            const fetchSchedules = secureFetch(`http://localhost:5000/api/schedules?startDate=${startDate}&endDate=${endDate}`);
+            const fetchVehicles = secureFetch(apiUrl("buses"));
+            const fetchSchedules = secureFetch(
+                `${apiUrl("schedules")}?startDate=${startDate}&endDate=${endDate}`
+            );
 
             Promise.all([fetchVehicles, fetchSchedules])
                 .then(([vehiclesData, schedulesData]) => {
@@ -162,7 +165,7 @@ export default function NextWeekScheduler({ isOpen, onClose, drivers = [] }) {
         setFastAssignSummary(null); 
 
         try {
-            const response = await fetch('http://localhost:5000/api/schedules/generate-fast-match', {
+            const response = await fetch(apiUrl("schedules/generate-fast-match"), {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -230,7 +233,7 @@ export default function NextWeekScheduler({ isOpen, onClose, drivers = [] }) {
                 }
             }
 
-            const response = await fetch('http://localhost:5000/api/schedules', {
+            const response = await fetch(apiUrl("schedules"), {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({

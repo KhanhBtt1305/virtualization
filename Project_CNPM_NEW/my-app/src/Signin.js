@@ -1,6 +1,7 @@
 // Signin.js
 import React, { useState } from "react";
 import "./App.css";
+import { apiUrl } from "./api/apiConfig";
 
 export default function Signin({ tenTK, setTenTK, matkhau, setMatkhau, onLogin }) {
   const [error, setError] = useState("");
@@ -13,7 +14,7 @@ export default function Signin({ tenTK, setTenTK, matkhau, setMatkhau, onLogin }
     }
 // gửi POST request lên server
     try {
-      const res = await fetch("http://localhost:5000/api/signin", {
+      const res = await fetch(apiUrl("signin"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ tai_khoan: tenTK, matkhau })
