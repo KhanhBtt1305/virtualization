@@ -43,7 +43,6 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
   try {
     const studentId = req.params.id;
-    
     const query = `
       SELECT 
         s.*,

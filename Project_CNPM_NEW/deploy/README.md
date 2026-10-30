@@ -1,5 +1,27 @@
 # Triển khai G5BUS trên Windows IIS (mẫu)
 
+## Triển khai frontend và backend lên Vercel
+
+Frontend và backend là **hai Vercel project riêng**. Đặt Root Directory lần lượt là `Project_CNPM_NEW/my-app` (frontend) và `Project_CNPM_NEW/backend` (backend).
+
+1. Ở Vercel project **frontend**, đặt biến môi trường `REACT_APP_API_URL=https://virtualization-pi.vercel.app/api` cho Production (và Preview nếu cần). Giá trị mặc định trong frontend cũng trỏ tới URL này; biến môi trường dùng để đổi backend khi cần. CRA đóng gói biến này lúc build.
+2. Ở Vercel project **backend**, đặt các biến môi trường sau:
+
+   | Biến | Giá trị |
+   | --- | --- |
+   | `CORS_ORIGIN` | Origin frontend, ví dụ `https://<frontend>.vercel.app` (nhiều origin cách nhau bằng dấu phẩy) |
+   | `DB_HOST` | Host MySQL công khai của bạn |
+   | `DB_PORT` | Port MySQL của nhà cung cấp |
+   | `DB_USER` | Tài khoản MySQL |
+   | `DB_PASSWORD` | Mật khẩu MySQL |
+   | `DB_NAME` | Tên database |
+
+Không dùng `localhost`, `db` của Docker hoặc `DB_PORT_HOST` cho `DB_HOST`/`DB_PORT` trên Vercel. Vercel cần truy cập được database qua mạng; database phải cho phép kết nối từ ứng dụng Vercel.
+3. Redeploy cả hai project sau khi đổi Root Directory hoặc Environment Variables. File `.env.example` trong repository không tự trở thành Environment Variables của Vercel.
+4. Kiểm tra `https://virtualization-pi.vercel.app/api/health`; kết quả mong đợi là `{"status":"ok"}`. Sau đó có thể kiểm tra lịch bằng `GET https://virtualization-pi.vercel.app/api/schedules?startDate=YYYY-MM-DD&endDate=YYYY-MM-DD`.
+
+Không đưa mật khẩu database vào Git hoặc vào biến `REACT_APP_*`; những biến có tiền tố này được đóng gói vào frontend.
+
 ## 1) Chuẩn bị prerequisite
 
 Máy Windows Server chạy PowerShell **Administrator**, cài:
@@ -110,4 +132,3 @@ Pipeline nằm ở `.github/workflows/ci-cd.yml`.
 4. Trên server, clone repo (hoặc copy `docker-compose.prod.yml` + SQL seed), tạo file `.env` từ `.env.example`, rồi đợi workflow pull image và `docker compose up`.
 
 Package GHCR mặc định private. Vào GitHub Packages → image → Package settings → đổi visibility nếu muốn pull không cần token.
-
