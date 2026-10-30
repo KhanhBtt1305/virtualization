@@ -1,8 +1,10 @@
 -- Demo seed cho môi trường local/demo của G5BUS
 -- KHÔNG dùng mật khẩu này cho production.
+-- Chạy bus_map.sql trước; seed này có thể chạy lại để cập nhật dữ liệu demo.
 
 CREATE DATABASE IF NOT EXISTS `bus_map`;
 USE `bus_map`;
+SET NAMES utf8mb4;
 
 START TRANSACTION;
 

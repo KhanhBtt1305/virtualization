@@ -6,6 +6,11 @@
 -- Thời gian đã tạo: Th12 02, 2025 lúc 09:12 AM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.2.12
+-- Khởi tạo schema trên database đích (mặc định: bus_map) một lần.
+-- Với Docker Compose, MYSQL_DATABASE được chọn tự động trước khi chạy file này.
+-- Nếu chạy bằng CLI, chọn database trước, ví dụ: mysql -u root -p bus_map < bus_map.sql
+-- Khóa chính được khai báo trực tiếp trong CREATE TABLE để tương thích
+-- với máy chủ bật sql_require_primary_key.
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -34,7 +39,8 @@ CREATE TABLE `bus` (
   `default_route_id` varchar(20) DEFAULT NULL,
   `status` varchar(100) DEFAULT 'Ngưng hoạt động',
   `departure_status` varchar(100) DEFAULT 'Chưa xuất phát',
-  `registry` date DEFAULT NULL
+  `registry` date DEFAULT NULL,
+  PRIMARY KEY (`bus_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -65,7 +71,8 @@ CREATE TABLE `bus_location` (
   `vi_tri_text` varchar(255) DEFAULT NULL,
   `timestamp` datetime DEFAULT NULL,
   `is_latest` tinyint(1) DEFAULT 0,
-  `nearest_stop_id` varchar(20) DEFAULT NULL
+  `nearest_stop_id` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`location_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -89,7 +96,8 @@ CREATE TABLE `bus_schedule` (
   `driver_id` varchar(20) DEFAULT NULL,
   `schedule_date` date DEFAULT NULL,
   `start_time` time DEFAULT NULL,
-  `end_time` time DEFAULT NULL
+  `end_time` time DEFAULT NULL,
+  PRIMARY KEY (`schedule_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -111,7 +119,8 @@ CREATE TABLE `bus_status_history` (
   `id` int(11) NOT NULL,
   `bus_id` varchar(20) NOT NULL,
   `status` enum('running','stopped','inactive') NOT NULL DEFAULT 'inactive',
-  `updated_at` datetime NOT NULL DEFAULT current_timestamp()
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -134,7 +143,8 @@ CREATE TABLE `bus_stop` (
   `route_id` varchar(20) DEFAULT NULL,
   `stop_name` varchar(100) DEFAULT NULL,
   `address` varchar(255) DEFAULT NULL,
-  `stop_order` int(11) DEFAULT NULL
+  `stop_order` int(11) DEFAULT NULL,
+  PRIMARY KEY (`stop_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -178,7 +188,8 @@ CREATE TABLE `driver` (
   `license_class` varchar(10) DEFAULT 'B2',
   `work_schedule` set('MON','TUE','WED','THU','FRI','SAT','SUN') DEFAULT NULL,
   `profile_image` varchar(500) DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`driver_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -209,7 +220,8 @@ CREATE TABLE `notification` (
   `recurrence_days` varchar(50) DEFAULT NULL,
   `status_sent` enum('pending','sent') DEFAULT 'sent',
   `created_at` datetime DEFAULT current_timestamp(),
-  `status` enum('unread','read') NOT NULL DEFAULT 'unread'
+  `status` enum('unread','read') NOT NULL DEFAULT 'unread',
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -236,7 +248,8 @@ CREATE TABLE `notification_recipients` (
   `recipient_id` varchar(20) NOT NULL,
   `recipient_type` varchar(50) DEFAULT NULL,
   `status` enum('unread','read') DEFAULT 'unread',
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -260,7 +273,8 @@ CREATE TABLE `parent` (
   `phone` varchar(15) DEFAULT NULL,
   `age` int(11) DEFAULT NULL COMMENT 'Tuổi',
   `sex` enum('Nam','Nữ','Khác') DEFAULT 'Khác',
-  `email` varchar(255) DEFAULT 'Chưa nhập'
+  `email` varchar(255) DEFAULT 'Chưa nhập',
+  PRIMARY KEY (`parent_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -288,7 +302,8 @@ CREATE TABLE `route` (
   `planned_end` time DEFAULT NULL,
   `total_students` int(11) DEFAULT 0,
   `status` enum('Đang hoạt động','Ngưng hoạt động','Bảo trì') DEFAULT 'Đang hoạt động',
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`route_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -315,7 +330,8 @@ CREATE TABLE `student` (
   `name` varchar(100) DEFAULT NULL,
   `school_name` varchar(150) DEFAULT NULL,
   `class_name` varchar(100) DEFAULT NULL,
-  `gender` enum('Nam','Nữ','Khác') DEFAULT NULL
+  `gender` enum('Nam','Nữ','Khác') DEFAULT NULL,
+  PRIMARY KEY (`student_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -341,7 +357,8 @@ CREATE TABLE `student_pickup` (
   `stop_id` varchar(20) DEFAULT NULL,
   `pickup_time` datetime DEFAULT NULL,
   `dropoff_time` datetime DEFAULT NULL,
-  `status` varchar(50) DEFAULT NULL
+  `status` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`pickup_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -364,7 +381,8 @@ CREATE TABLE `users` (
   `password` varchar(255) NOT NULL,
   `role` enum('admin','driver','parent') NOT NULL,
   `linked_id` varchar(20) DEFAULT NULL COMMENT 'ID liên kết với driver hoặc parent',
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -393,14 +411,12 @@ INSERT INTO `users` (`user_id`, `username`, `password`, `role`, `linked_id`, `cr
 -- Chỉ mục cho bảng `bus`
 --
 ALTER TABLE `bus`
-  ADD PRIMARY KEY (`bus_id`),
   ADD KEY `default_route_id` (`default_route_id`);
 
 --
 -- Chỉ mục cho bảng `bus_location`
 --
 ALTER TABLE `bus_location`
-  ADD PRIMARY KEY (`location_id`),
   ADD KEY `bus_id` (`bus_id`),
   ADD KEY `nearest_stop_id` (`nearest_stop_id`);
 
@@ -408,7 +424,6 @@ ALTER TABLE `bus_location`
 -- Chỉ mục cho bảng `bus_schedule`
 --
 ALTER TABLE `bus_schedule`
-  ADD PRIMARY KEY (`schedule_id`),
   ADD KEY `route_id` (`route_id`),
   ADD KEY `bus_id` (`bus_id`),
   ADD KEY `driver_id` (`driver_id`);
@@ -417,56 +432,42 @@ ALTER TABLE `bus_schedule`
 -- Chỉ mục cho bảng `bus_status_history`
 --
 ALTER TABLE `bus_status_history`
-  ADD PRIMARY KEY (`id`),
   ADD KEY `bus_id` (`bus_id`);
 
 --
 -- Chỉ mục cho bảng `bus_stop`
 --
 ALTER TABLE `bus_stop`
-  ADD PRIMARY KEY (`stop_id`),
   ADD KEY `route_id` (`route_id`);
 
 --
 -- Chỉ mục cho bảng `driver`
 --
 ALTER TABLE `driver`
-  ADD PRIMARY KEY (`driver_id`),
   ADD UNIQUE KEY `id_card` (`id_card`),
   ADD UNIQUE KEY `email` (`email`),
   ADD KEY `user_id` (`user_id`);
 
 --
--- Chỉ mục cho bảng `notification`
---
-ALTER TABLE `notification`
-  ADD PRIMARY KEY (`id`);
-
 --
 -- Chỉ mục cho bảng `notification_recipients`
 --
 ALTER TABLE `notification_recipients`
-  ADD PRIMARY KEY (`id`),
   ADD KEY `notification_id` (`notification_id`);
 
 --
 -- Chỉ mục cho bảng `parent`
 --
 ALTER TABLE `parent`
-  ADD PRIMARY KEY (`parent_id`),
   ADD KEY `user_id` (`user_id`);
 
 --
 -- Chỉ mục cho bảng `route`
 --
-ALTER TABLE `route`
-  ADD PRIMARY KEY (`route_id`);
-
 --
 -- Chỉ mục cho bảng `student`
 --
 ALTER TABLE `student`
-  ADD PRIMARY KEY (`student_id`),
   ADD KEY `parent_id` (`parent_id`),
   ADD KEY `stop_id` (`stop_id`),
   ADD KEY `dropoff_stop_id` (`dropoff_stop_id`);
@@ -475,7 +476,6 @@ ALTER TABLE `student`
 -- Chỉ mục cho bảng `student_pickup`
 --
 ALTER TABLE `student_pickup`
-  ADD PRIMARY KEY (`pickup_id`),
   ADD KEY `student_id` (`student_id`),
   ADD KEY `driver_id` (`driver_id`),
   ADD KEY `schedule_id` (`schedule_id`),
@@ -485,7 +485,6 @@ ALTER TABLE `student_pickup`
 -- Chỉ mục cho bảng `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`user_id`),
   ADD UNIQUE KEY `username` (`username`);
 
 --

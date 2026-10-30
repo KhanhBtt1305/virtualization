@@ -75,6 +75,8 @@ Frontend API requests use `REACT_APP_API_URL`, configured centrally in `src/api/
 
 - For local development, create `.env.development.local` in this directory and set `REACT_APP_API_URL=http://localhost:5000/api`.
 - On Vercel, add `REACT_APP_API_URL=https://virtualization-pi.vercel.app/api` in the project's Environment Variables, then redeploy.
-- If the variable is not set, the app uses `/api` on the current domain.
+- If the variable is not set, the app uses `https://virtualization-pi.vercel.app/api`.
 
 Create React App reads environment variables at build time, so restart the local development server or rebuild and redeploy after changing the value.
+
+The backend health check is available at `https://virtualization-pi.vercel.app/api/health`. Data endpoints also require the backend Vercel project to have a reachable MySQL database configured with `DB_HOST`, `DB_PORT`, `DB_USER`, `DB_PASSWORD`, and `DB_NAME`. Do not set `DB_HOST` to `localhost` on Vercel.

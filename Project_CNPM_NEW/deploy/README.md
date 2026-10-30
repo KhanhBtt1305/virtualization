@@ -20,6 +20,8 @@ Không dùng `localhost`, `db` của Docker hoặc `DB_PORT_HOST` cho `DB_HOST`/
 3. Redeploy cả hai project sau khi đổi Root Directory hoặc Environment Variables. File `.env.example` trong repository không tự trở thành Environment Variables của Vercel.
 4. Kiểm tra `https://virtualization-pi.vercel.app/api/health`; kết quả mong đợi là `{"status":"ok"}`. Sau đó có thể kiểm tra lịch bằng `GET https://virtualization-pi.vercel.app/api/schedules?startDate=YYYY-MM-DD&endDate=YYYY-MM-DD`.
 
+Nếu `/api/health` trả `{"status":"ok"}` nhưng API dữ liệu trả lỗi `ECONNREFUSED 127.0.0.1:3306`, backend chưa được cấu hình MySQL trên Vercel. Hãy đặt `DB_HOST`, `DB_PORT`, `DB_USER`, `DB_PASSWORD` và `DB_NAME` trong **backend project**, dùng địa chỉ MySQL có thể truy cập từ Internet; sau đó redeploy backend. Để frontend gọi backend khác domain, đặt `CORS_ORIGIN` bằng origin chính xác của frontend (ví dụ `https://<frontend>.vercel.app`, không kèm `/` hoặc đường dẫn), rồi redeploy backend.
+
 Không đưa mật khẩu database vào Git hoặc vào biến `REACT_APP_*`; những biến có tiền tố này được đóng gói vào frontend.
 
 ## 1) Chuẩn bị prerequisite
