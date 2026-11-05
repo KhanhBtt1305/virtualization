@@ -9,6 +9,9 @@ on:
 jobs:
   lint-and-build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: Project_CNPM_NEW/my-app
 
     steps:
       - name: Checkout code
@@ -19,6 +22,7 @@ jobs:
         with:
           node-version: '18.x'
           cache: 'npm'
+          cache-dependency-path: Project_CNPM_NEW/my-app/package-lock.json
 
       - name: Install dependencies
         run: npm ci
