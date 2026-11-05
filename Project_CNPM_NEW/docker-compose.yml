@@ -26,11 +26,12 @@ services:
     environment:
       NODE_ENV: production
       PORT: 5000
-      DB_HOST: db
-      DB_PORT: 3306
-      DB_USER: root
+      DB_HOST: ${DB_HOST:-db}
+      DB_PORT: ${DB_PORT:-3306}
+      DB_USER: ${DB_USER:-root}
       DB_PASSWORD: ${DB_PASSWORD:-123456}
       DB_NAME: ${DB_NAME:-bus_map}
+      DB_SSL: ${DB_SSL:-disabled}
       CORS_ORIGIN: ${CORS_ORIGIN:-http://localhost:3000}
     depends_on:
       db:

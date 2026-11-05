@@ -157,10 +157,12 @@ Tạo file `.env` trên máy chủ dựa trên
 [`Project_CNPM_NEW/.env.example`](./Project_CNPM_NEW/.env.example):
 
 ```dotenv
+DB_HOST=mysql-246b6501-mybusapp.g.aivencloud.com
+DB_PORT=14387
 DB_PASSWORD=mat-khau-thuc-te
-DB_NAME=bus_map
-DB_USER=root
-DB_PORT_HOST=3307
+DB_NAME=defaultdb
+DB_USER=avnadmin
+DB_SSL=required
 BACKEND_PORT=5000
 FRONTEND_PORT=3000
 CORS_ORIGIN=https://example.com
@@ -169,6 +171,7 @@ FRONTEND_IMAGE=ghcr.io/<github-owner>/g5bus-frontend:latest
 ```
 
 Không sử dụng mật khẩu mặc định hoặc đưa file `.env` production vào Git.
+Các biến `DB_HOST`, `DB_PORT`, `DB_USER`, `DB_PASSWORD`, `DB_NAME` và `DB_SSL` được truyền trực tiếp cho backend; đặt `DB_SSL=required` khi dùng Aiven.
 
 Khi deploy, workflow thực hiện tương đương:
 

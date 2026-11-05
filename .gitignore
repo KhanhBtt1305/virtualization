@@ -7,6 +7,12 @@ bin-release/
 # Other files and folders
 .settings/
 
+# Local environment files
+.env
+.env.*
+!.env.example
+Project_CNPM_NEW/backend/.env
+
 # Executables
 *.swf
 *.air
