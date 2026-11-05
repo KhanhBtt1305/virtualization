@@ -1,6 +1,6 @@
 import L from 'leaflet';
 import { VAN_TOC } from './constants.js';
-import { trungDate, parseDateTime } from './handleDateTime.js';
+import { trungDate } from './handleDateTime.js';
 
 /**
  * Tìm vị trí hiện tại của xe dựa trên quãng đường đã đi

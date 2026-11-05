@@ -2,7 +2,6 @@ import './style.css';
 import React, { useEffect, useState, useMemo } from 'react';
 import BusRoute from './component/bus_route';
 import { Route,defaultRoutes } from "../../../models/Route";
-import { Time } from '../../../models/Time';
 import AddRoute from './component/AddRoute';
 import StyleMain from './../styleMain.module.css';
 import { RouteDetail } from './component/formdetails/Detail_Route';

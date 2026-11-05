@@ -1,6 +1,5 @@
 // src/api/goongClient.js
 import axios from "axios";
-import { useEffect } from "react";
 
 const GOONG_API_KEY = process.env.REACT_APP_GOONG_API_KEY;
 

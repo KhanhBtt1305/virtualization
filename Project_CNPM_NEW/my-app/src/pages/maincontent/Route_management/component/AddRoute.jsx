@@ -2,10 +2,9 @@
 import React, { useRef, useEffect, useState } from 'react';
 import './addRoute.css';
 
-import StyleMain from "./../../styleMain.module.css";
 import MapComponent from "./../../../../components/MapComponent"
 import SearchSuggestAddress from '../../../../components/MapHandle/SearchSuggestAddress';
-import {Stop,stops} from '../../../../models/Stop';
+import { stops } from '../../../../models/Stop';
 function listtoString(list){
   let stopNames = "";
 

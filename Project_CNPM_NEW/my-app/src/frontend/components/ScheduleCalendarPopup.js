@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react"; 
 import {
   isSunday, isToday, isBefore, format,
-  startOfDay, isSameWeek,
+  startOfDay,
   startOfWeek, endOfWeek, subWeeks
 } from "date-fns";
 import { vi } from "date-fns/locale";
