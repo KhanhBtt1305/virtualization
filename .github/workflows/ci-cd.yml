@@ -75,11 +75,8 @@ jobs:
         env:
           CI: "true"
 
-      # FIX: Do not treat ESLint warnings as build errors
       - name: Build frontend
-        run: npm run build
-        env:
-          CI: "false"
+        run: CI=false npm run build
 
       - name: Upload frontend build
         uses: actions/upload-artifact@v4
