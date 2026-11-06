@@ -171,7 +171,7 @@ export const thietLapTuyen = (tuyen, map, dataTuyenRef, markerXeRef, markerTramR
       );
     } else if (trangThai.status === 'finished') {
       capNhatTrangThaiTram(tuyen.td_id, tongS, 'finished', dataTuyenRef, selectedRouteIdRef, onRouteSelectRef);
-      danhDauXeKetThuc(tuyen.td_id, lichTrinh, markerXeRef, dataTuyenRef);
+      danhDauXeKetThuc(tuyen.td_id, lichTrinh, markerXeRef);
     }
 
     // Xóa routing control sau 1 giây

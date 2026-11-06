@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useCallback } from "react";
 import MapComponent from "./components/MapTracking/MapComponent";
 import "./Tracking.css";
 
@@ -58,11 +58,6 @@ function Tracking() {
   const dinhDangLanCapNhat = () => {
     if (!lanCapNhatCuoi) return "";
     return `Cập nhật: ${lanCapNhatCuoi.toLocaleTimeString()}`;
-  };
-
-  // Hàm tính vận tốc m/s từ km/h
-  const tinhVanTocMetGiay = (vanTocKmH) => {
-    return (vanTocKmH * 1000 / 3600).toFixed(2);
   };
 
   return ( 

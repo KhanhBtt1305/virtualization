@@ -8,7 +8,7 @@ import { apiUrl } from "../../api/apiConfig";
 
 // Import các hàm
 import { khoiTaoBanDo, thietLapTuyen } from './handleMapSetup.js';
-import { xuLyTimKiem, capNhatThongTinTuyen } from './handleSearch.js';
+import { xuLyTimKiem } from './handleSearch.js';
 
 function MapComponent({ searchQuery, searchTrigger, onRouteSelect }) {
   // ================ KHAI BÁO STATE VÀ REF ================
@@ -93,7 +93,7 @@ function MapComponent({ searchQuery, searchTrigger, onRouteSelect }) {
   // Xử lý tìm kiếm khi searchTrigger thay đổi
   useEffect(() => {
     xuLyTimKiem(searchQuery, mapRef, markerXeRef, isTheoDoiRef, markerTheoDoiRef, selectedRouteIdRef, onRouteSelectRef, dataTuyenRef);
-  }, [searchTrigger]);
+  }, [searchQuery, searchTrigger]);
 
   // Cleanup khi component unmount
   useEffect(() => {

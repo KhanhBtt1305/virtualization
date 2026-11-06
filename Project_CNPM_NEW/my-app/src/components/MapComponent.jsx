@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useMemo, useCallback } from 'react';
+import React, { useEffect, useState, useMemo, useCallback } from 'react';
 import { InteractiveMap } from '@goongmaps/goong-map-react';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import PointLocation from './MapHandle/PointLocation';
@@ -59,7 +59,6 @@ const MapComponent = ({ positionCurrent = { start: null, end: null }, stops = []
   });
 
   const [chooseMapLocation, setChooseMapLocation] = useState(null);
-  const [selectedPoint, setSelectedPoint] = useState(null);
   const [userLocation, setUserLocation] = useState(null);
 
   // Validate + normalize stops
@@ -67,18 +66,13 @@ const MapComponent = ({ positionCurrent = { start: null, end: null }, stops = []
     return stops.filter(isValidCoord).map(normalizeCoord);
   }, [stops]);
 
-  // Memoize route pairs từ stops
-  const routePairs = useMemo(() => {
-    const pairs = [];
-    for (let i = 0; i < validStops.length - 1; i++) {
-      pairs.push({
-        origin: validStops[i],
-        destination: validStops[i + 1],
-        color: ['#3887be', '#e74c3c', '#2ecc71', '#f39c12', '#9b59b6', '#1abc9c'][i % 6]
-      });
-    }
-    return pairs;
-  }, [validStops]);
+  const startLatitude = positionCurrent.start?.lat;
+  const startLongitude = positionCurrent.start?.lng;
+  const endLatitude = positionCurrent.end?.lat;
+  const endLongitude = positionCurrent.end?.lng;
+  const lastStop = validStops[validStops.length - 1];
+  const lastStopLatitude = lastStop?.lat;
+  const lastStopLongitude = lastStop?.lng;
 
   // Update viewport khi start/end thay đổi
   useEffect(() => {
@@ -90,7 +84,7 @@ const MapComponent = ({ positionCurrent = { start: null, end: null }, stops = []
         zoom: Math.max(prev.zoom, 15)
       }));
     }
-  }, [positionCurrent.start?.lat, positionCurrent.start?.lng]);
+  }, [positionCurrent.start, startLatitude, startLongitude]);
   useEffect(()=>{
     if (isValidCoord(positionCurrent.end)) {
       setViewport(prev => ({
@@ -100,10 +94,9 @@ const MapComponent = ({ positionCurrent = { start: null, end: null }, stops = []
         zoom: Math.max(prev.zoom, 15)
       }));
     }
-  },[positionCurrent.start?.lat,positionCurrent.end?.lng])
+  }, [positionCurrent.end, endLatitude, endLongitude]);
   // Update viewport khi last stop thay đổi
   useEffect(() => {
-    const lastStop = validStops[validStops.length - 1];
     if (isValidCoord(lastStop)) {
       setViewport(prev => ({
         ...prev,
@@ -112,8 +105,7 @@ const MapComponent = ({ positionCurrent = { start: null, end: null }, stops = []
         zoom: Math.max(prev.zoom, 16)
       }));
     }
-  }, [validStops.length > 0 ? validStops[validStops.length - 1]?.lat : null,
-      validStops.length > 0 ? validStops[validStops.length - 1]?.lng : null]);
+  }, [lastStop, lastStopLatitude, lastStopLongitude]);
 
   const handleMapChoose = useCallback((event) => {
     if (!event?.lngLat) return;
@@ -142,7 +134,6 @@ const MapComponent = ({ positionCurrent = { start: null, end: null }, stops = []
         const { latitude, longitude } = pos.coords;
         const loc = { lat: latitude, lng: longitude };
         setUserLocation(loc);
-        setSelectedPoint({ ...loc, name: 'Vị trí của bạn' });
         setViewport(prev => ({
           ...prev,
           latitude,

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { BaseModel } from "./BaseModel.js";
 export class Route extends BaseModel {
     constructor(input = {}) {
@@ -335,4 +335,3 @@ export const defaultRoutes= [
     status: 'active'
   })
 ]
-

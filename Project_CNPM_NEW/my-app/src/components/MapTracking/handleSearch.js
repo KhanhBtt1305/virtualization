@@ -1,5 +1,4 @@
 import { VAN_TOC } from './constants.js';
-import { capNhatTrangThaiTram } from './handleRouteCalculation.js';
 
 /**
  * Xử lý tìm kiếm xe theo mã

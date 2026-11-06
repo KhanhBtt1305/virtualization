@@ -1,4 +1,6 @@
 
+require('dotenv').config();
+
 const mysql = require('mysql2/promise');
 const fs = require('node:fs');
 const path = require('node:path');
@@ -20,12 +22,17 @@ const ssl = process.env.DB_SSL === 'true'
     }
   : undefined;
 
+const ssl = process.env.DB_SSL?.toLowerCase() === 'required'
+  ? { rejectUnauthorized: true }
+  : undefined;
+
 const pool = mysql.createPool({
   host: process.env.DB_HOST || 'localhost',
   user: process.env.DB_USER || 'root',
-  password: process.env.DB_PASSWORD || '123456',
+  password: process.env.DB_PASSWORD || '',
   database: process.env.DB_NAME || 'bus_map',
-  port: Number(process.env.DB_PORT || 3306),
+  port: process.env.DB_PORT || 3306,
+  ssl,
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0,

@@ -201,7 +201,7 @@ export const batDauDiChuyenXe = (idTuyen, dataTuyenRef, markerXeRef, animRefs, s
 
   // Dừng animation nếu xe đã đến cuối tuyến
   if (quangDuongDaDi >= tongS) {
-    danhDauXeKetThuc(idTuyen, lichTrinh, markerXeRef, dataTuyenRef);
+    danhDauXeKetThuc(idTuyen, lichTrinh, markerXeRef);
     return;
   }
 
@@ -219,7 +219,7 @@ export const batDauDiChuyenXe = (idTuyen, dataTuyenRef, markerXeRef, animRefs, s
 /**
  * Đánh dấu xe đã kết thúc hành trình
  */
-export const danhDauXeKetThuc = (idTuyen, lichTrinh, markerXeRef, dataTuyenRef) => {
+export const danhDauXeKetThuc = (idTuyen, lichTrinh, markerXeRef) => {
   const marker = markerXeRef.current[idTuyen];
   if (marker) {
     const dataTuyen = dataTuyenRef.current ? dataTuyenRef.current[idTuyen] : null;

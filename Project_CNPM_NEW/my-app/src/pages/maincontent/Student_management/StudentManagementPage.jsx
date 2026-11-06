@@ -3,8 +3,8 @@ import Style from "./../styleMain.module.css";
 import React, { useRef,useEffect, useState, useMemo } from "react";
 import "./style.css";
 import "./../searchbar.css";
-import { Student,defaultStudents } from "../../../models/Student";
-import Detail_Student from "./component/formdetails/Detail_Student";
+import { defaultStudents } from "../../../models/Student";
+import DetailStudent from "./component/formdetails/Detail_Student";
 import AddStudent from "./component/addStudent";
 
 function renderStudentsTable(students, onDetails) {
@@ -121,7 +121,7 @@ function StudentManagementPage() {
   function handleSwitchPage(){
     switch(pagestudent.key){
       case "detail":
-        return <Detail_Student tempStudent={pagestudent.value} backToList={goBackToList}/>;
+        return <DetailStudent tempStudent={pagestudent.value} backToList={goBackToList}/>;
       default:
         return renderStudentsTable(filteredStudents, handleStudentDetails);
     }

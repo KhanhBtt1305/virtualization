@@ -9,7 +9,7 @@ export default function ThongBao() {
     const [showPopup, setShowPopup] = useState(false);
     const [notifications, setNotifications] = useState([]);
     const [filterStatus, setFilterStatus] = useState(""); 
-    const [viewingNotice, setViewingNotice] = useState(null);
+    const [, setViewingNotice] = useState(null);
     
     const [usersList, setUsersList] = useState([]); 
     const [searchTerm, setSearchTerm] = useState(""); 

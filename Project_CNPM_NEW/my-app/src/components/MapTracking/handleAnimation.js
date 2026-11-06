@@ -203,7 +203,7 @@ console.log("Quãng đường đã đi (m):", quangDuongDaDi);
 
   // Dừng animation nếu xe đã đến cuối tuyến
   if (quangDuongDaDi >= tongS) {
-    danhDauXeKetThuc(idTuyen, lichTrinh, markerXeRef, dataTuyenRef);
+    danhDauXeKetThuc(idTuyen, lichTrinh, markerXeRef);
     return;
   }
 
@@ -221,12 +221,9 @@ console.log("Quãng đường đã đi (m):", quangDuongDaDi);
 /**
  * Đánh dấu xe đã kết thúc hành trình
  */
-export const danhDauXeKetThuc = (idTuyen, lichTrinh, markerXeRef, dataTuyenRef) => {
+export const danhDauXeKetThuc = (idTuyen, lichTrinh, markerXeRef) => {
   const marker = markerXeRef.current[idTuyen];
   if (marker) {
-    const dataTuyen = dataTuyenRef.current ? dataTuyenRef.current[idTuyen] : null;
-    const tongS = dataTuyen ? dataTuyen.tongS : 0;
-    
     const tooltipContent = `
       <b>Mã xe: ${lichTrinh.bus_id || 'Lỗi'}</b><br/>
       <b>Mã tài xế: ${lichTrinh.driver_id || 'Lỗi'}</b><br/>

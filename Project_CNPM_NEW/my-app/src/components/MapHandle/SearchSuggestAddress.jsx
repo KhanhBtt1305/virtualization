@@ -1,10 +1,7 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef } from "react";
 import axios from "axios";
-import GoongMapReact from "@goongmaps/goong-map-react";
 import { getPlaceDetail } from "../../api/GoongPlaceDetail";
-import PointLocation from "./PointLocation";
 const GOONG_API_KEY = process.env.REACT_APP_GOONG_API_KEY;
-let count = 0
 function get3character(address){
   // Tách thành các từ, lọc chỉ lấy chữ cái
 const words = address.split(' ')

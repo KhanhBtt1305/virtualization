@@ -84,14 +84,6 @@ function QuanLyXeBuyt() {
     setShowForm(true);
   };
   
-  const handleEdit = (bus) => {
-    setFormType("edit");
-    setFormData(bus);
-    setErrorMessage("");
-    setSuggestions([]); 
-    setShowForm(true);
-  };
-
   const handleView = (bus) => {
     setFormType("view");
     setFormData(bus);
