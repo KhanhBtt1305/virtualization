@@ -1,29 +1,35 @@
 
-require('dotenv').config();
-
 const mysql = require('mysql2/promise');
 const fs = require('node:fs');
 const path = require('node:path');
 
-const envPath = path.join(__dirname, '.env');
-if (fs.existsSync(envPath)) {
-  if (typeof process.loadEnvFile !== 'function') {
-    throw new Error('Loading backend/.env requires Node.js 20.12 or newer.');
-  }
-  process.loadEnvFile(envPath);
+require('dotenv').config({ path: path.join(__dirname, '.env') });
+
+const sslMode = (process.env.DB_SSL || 'false').trim().toLowerCase();
+const sslEnabled = ['true', '1', 'required', 'enabled'].includes(sslMode);
+if (!sslEnabled && !['false', '0', 'disabled', ''].includes(sslMode)) {
+  throw new Error('DB_SSL must be true/required or false/disabled.');
 }
 
-const ssl = process.env.DB_SSL === 'true'
-  ? {
-      rejectUnauthorized: process.env.DB_SSL_REJECT_UNAUTHORIZED !== 'false',
-      ...(process.env.DB_SSL_CA
-        ? { ca: fs.readFileSync(path.resolve(__dirname, process.env.DB_SSL_CA), 'utf8') }
-        : {})
-    }
+const rejectUnauthorizedValue = (
+  process.env.DB_SSL_REJECT_UNAUTHORIZED || 'true'
+).trim().toLowerCase();
+if (!['true', 'false'].includes(rejectUnauthorizedValue)) {
+  throw new Error('DB_SSL_REJECT_UNAUTHORIZED must be true or false.');
+}
+
+const caValue = process.env.DB_SSL_CA?.trim();
+const ca = sslEnabled && caValue
+  ? caValue.includes('-----BEGIN CERTIFICATE-----')
+    ? caValue.replace(/\\n/g, '\n')
+    : fs.readFileSync(path.resolve(__dirname, caValue), 'utf8')
   : undefined;
 
-const ssl = process.env.DB_SSL?.toLowerCase() === 'required'
-  ? { rejectUnauthorized: true }
+const ssl = sslEnabled
+  ? {
+      rejectUnauthorized: rejectUnauthorizedValue === 'true',
+      ...(ca ? { ca } : {})
+    }
   : undefined;
 
 const pool = mysql.createPool({
@@ -31,8 +37,7 @@ const pool = mysql.createPool({
   user: process.env.DB_USER || 'root',
   password: process.env.DB_PASSWORD || '',
   database: process.env.DB_NAME || 'bus_map',
-  port: process.env.DB_PORT || 3306,
-  ssl,
+  port: Number(process.env.DB_PORT || 3306),
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0,
