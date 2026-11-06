@@ -4,7 +4,7 @@
 
 Frontend và backend là **hai Vercel project riêng**. Đặt Root Directory lần lượt là `Project_CNPM_NEW/my-app` (frontend) và `Project_CNPM_NEW/backend` (backend).
 
-1. Ở Vercel project **frontend**, đặt biến môi trường `REACT_APP_API_URL=https://virtualization-pi.vercel.app/api` cho Production (và Preview nếu cần). Giá trị mặc định trong frontend cũng trỏ tới URL này; biến môi trường dùng để đổi backend khi cần. CRA đóng gói biến này lúc build.
+1. Ở Vercel project **frontend**, đặt biến môi trường `REACT_APP_API_URL=https://virtualization-4xwk.vercel.app/api` cho Production (và Preview nếu cần). Giá trị mặc định trong frontend cũng trỏ tới URL này; biến môi trường dùng để đổi backend khi cần. CRA đóng gói biến này lúc build.
 2. Ở Vercel project **backend**, đặt các biến môi trường sau:
 
    | Biến | Giá trị |
@@ -18,9 +18,9 @@ Frontend và backend là **hai Vercel project riêng**. Đặt Root Directory l�
 
 Không dùng `localhost`, `db` của Docker hoặc `DB_PORT_HOST` cho `DB_HOST`/`DB_PORT` trên Vercel. Vercel cần truy cập được database qua mạng; database phải cho phép kết nối từ ứng dụng Vercel.
 3. Redeploy cả hai project sau khi đổi Root Directory hoặc Environment Variables. File `.env.example` trong repository không tự trở thành Environment Variables của Vercel.
-4. Kiểm tra `https://virtualization-pi.vercel.app/api/health`; kết quả mong đợi là `{"status":"ok"}`. Sau đó có thể kiểm tra lịch bằng `GET https://virtualization-pi.vercel.app/api/schedules?startDate=YYYY-MM-DD&endDate=YYYY-MM-DD`.
+4. Kiểm tra API backend, ví dụ `https://virtualization-4xwk.vercel.app/api/routes`. Domain backend chỉ phục vụ API (truy cập `/` có thể trả `Cannot GET /`); frontend phải được triển khai ở project/domain riêng. Sau đó có thể kiểm tra lịch bằng `GET https://virtualization-4xwk.vercel.app/api/schedules?startDate=YYYY-MM-DD&endDate=YYYY-MM-DD`.
 
-Nếu `/api/health` trả `{"status":"ok"}` nhưng API dữ liệu trả lỗi `ECONNREFUSED 127.0.0.1:3306`, backend chưa được cấu hình MySQL trên Vercel. Hãy đặt `DB_HOST`, `DB_PORT`, `DB_USER`, `DB_PASSWORD` và `DB_NAME` trong **backend project**, dùng địa chỉ MySQL có thể truy cập từ Internet; sau đó redeploy backend. Để frontend gọi backend khác domain, đặt `CORS_ORIGIN` bằng origin chính xác của frontend (ví dụ `https://<frontend>.vercel.app`, không kèm `/` hoặc đường dẫn), rồi redeploy backend.
+Nếu API dữ liệu trả lỗi `ECONNREFUSED 127.0.0.1:3306`, backend chưa được cấu hình MySQL trên Vercel. Hãy đặt `DB_HOST`, `DB_PORT`, `DB_USER`, `DB_PASSWORD` và `DB_NAME` trong **backend project**, dùng địa chỉ MySQL có thể truy cập từ Internet; sau đó redeploy backend. Để frontend gọi backend khác domain, đặt `CORS_ORIGIN` bằng origin chính xác của frontend (ví dụ `https://<frontend>.vercel.app`, không kèm `/` hoặc đường dẫn), rồi redeploy backend.
 
 Không đưa mật khẩu database vào Git hoặc vào biến `REACT_APP_*`; những biến có tiền tố này được đóng gói vào frontend.
 
